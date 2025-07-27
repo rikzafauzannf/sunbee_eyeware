@@ -22,9 +22,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  if (process.env.NODE_ENV === "development") {
-    fetch("/api/db-setup", { method: "POST" }).catch(console.error);
-  }
+  // if (process.env.NODE_ENV === "development") {
+  //   fetch("/api/db-setup", { method: "POST" }).catch(console.error);
+  // }
 
   return (
     <html lang="en">

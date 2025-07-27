@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { formatError } from './error';
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -72,7 +73,7 @@ export async function setupDatabase() {
     }
 
     return { success: true, message: 'Database setup & seed completed' };
-  } catch (err: any) {
-    return { success: false, error: err.message };
+  } catch (err: unknown) {
+    return { success: false, error: formatError(err) };
   }
 }

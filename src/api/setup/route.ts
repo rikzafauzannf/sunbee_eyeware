@@ -27,7 +27,10 @@ export async function POST() {
 
     const result = await response.json();
     return NextResponse.json({ message: 'Table created', result });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  }  catch (err: unknown) {
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
   }
 }

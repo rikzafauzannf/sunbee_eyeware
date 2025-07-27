@@ -1,8 +1,10 @@
 "use client";
 
 import { uploadProductImage } from "@/lib/product_actions";
+import Image from "next/image";
 import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
+import { AspectRatio } from "./ui/aspect-ratio";
 
 interface ImageUploadProps {
   onUpload: (url: string) => void;
@@ -23,8 +25,11 @@ export default function ImageUpload({ onUpload }: ImageUploadProps) {
       try {
         const url = await uploadProductImage(file);
         onUpload(url);
-      } catch (err: any) {
-        alert(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          return alert(err.message);
+        }
+        return alert("An unexpected error occurred");
       } finally {
         setUploading(false);
       }
@@ -47,11 +52,9 @@ export default function ImageUpload({ onUpload }: ImageUploadProps) {
     >
       <input {...getInputProps()} />
       {preview ? (
-        <img
-          src={preview}
-          alt="Preview"
-          className="mx-auto max-h-48 object-cover"
-        />
+        <AspectRatio ratio={16 / 9}>
+          <Image src={preview} alt="Preview" fill className="object-cover" />
+        </AspectRatio>
       ) : (
         <p>
           {uploading
