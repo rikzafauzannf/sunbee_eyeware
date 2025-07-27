@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     typedEnv: true, // supaya env bisa ter-type
   },
+  images: {
+    domains: ['images.unsplash.com'], // daftar domain image
+  },
 };
 
 export default nextConfig;

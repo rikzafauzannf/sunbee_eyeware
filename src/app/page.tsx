@@ -1,3 +1,4 @@
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { createServerSupabaseClient } from "@/lib/supabase";
 import Image from "next/image";
 
@@ -30,6 +31,23 @@ export default async function Home() {
             Save and see your changes instantly.
           </li>
         </ol>
+
+        {products?.map((items, idx) => (
+          <div key={idx}>
+            <AspectRatio ratio={16 / 9}>
+              <Image
+                className="object-cover"
+                src={items.image_url}
+                alt="Next.js logo"
+                fill
+                priority
+              />
+            </AspectRatio>
+            <p>
+              {items.name} - <b>{items.price}</b>
+            </p>
+          </div>
+        ))}
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
